@@ -186,19 +186,23 @@ This service is intended for demonstration purposes, not live trading.
 
 
 
-Extension Questions
-How would this scale to handle multiple tickers concurrently?
-Use asynchronous fetching or background workers with batch inserts.
+## Extension Questions
 
-How would you avoid API rate limits?
-Introduce caching, request throttling, and scheduled fetch jobs.
+1.How would this scale to handle 10 tickers concurrently?
+Fetching would operate independently from the API layer and would be carried out non parallel or through the use of background workers. 
+Parallel fetches along with batch inserts to the database would make it possible to handle multiple tickers efficiently without blocking API requests.
 
-What’s the first architectural change for production?
-Replace SQLite with PostgreSQL and introduce a caching layer such as Redis.
+2.How would you avoid API rate limits?
+A caching layer (e.g. Redis) and centralized fetch scheduler would be introduced.
+Frequently requested tickers would participate from cache, controlled fetch intervals, request throttling and backoff strategies would slow down external API usage.
 
-What’s a trading-related pitfall of this setup?
-Yahoo Finance data is not real-time and may not accurately reflect corporate actions, making it unsuitable for live trading decisions.
+3.What’s the first architectural change you'd make for production?
+SQLite would be replaced by a production grade of database such as PostgreSQL,
+along with a caching layer to enhance concurrency, durability & read performance.
 
+4.What’s a trading-related pitfall of using this setup as-is?
+Yahoo finance data is not guaranteed to be real time and may not fully account for corporate actions
+such as splits or dividends in which case it would not be good to use for direct live trading decisions.
 
 
 
