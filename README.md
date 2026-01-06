@@ -211,3 +211,7 @@ This project prioritizes clarity, correctness, and maintainability.
 Each component is intentionally small, testable, and easy to reason about.
 The goal was to build a service that a reviewer can confidently run, understand, and extend.
 
+
+👤 Author
+Rushikesh Vilas Kadam
+B.Tech Artificial Intelligence and Data Science
